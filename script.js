@@ -42,12 +42,14 @@ document.addEventListener('DOMContentLoaded', function() {
             text: taskInput.value.trim(),
             pledge: parseFloat(pledgeValue.value),
             createdAt: new Date(),
+            deadline: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours from now
             isWorking: false,
             elapsedTime: 0
         };
         
         tasks.push(task);
         updateTaskList();
+        startCountdown();
         
         // Hide the confirmation popup
         confirmationPopup.style.display = 'none';
@@ -100,9 +102,16 @@ function updateTaskList() {
                         <button onclick="removeTask(${index})">Complete Work</button>
                     </div>
                 </div>
+                <div class="countdown-section">
+                    <div class="countdown-container">
+                        <span>Time Remaining until Pledge is Due:</span>
+                        <div class="countdown" id="countdown-${index}"></div>
+                    </div>
+                </div>
             </div>
         </li>
     `).join('');
+    updateCountdowns();
 }
 
 function removeTask(index) {
@@ -111,6 +120,11 @@ function removeTask(index) {
     }
     tasks.splice(index, 1);
     updateTaskList();
+
+    if (tasks.length === 0 && window.countdownInterval) {
+        clearInterval(window.countdownInterval);
+        window.countdownInterval = null;
+    }
 }
 
 function workOnTask(index) {
@@ -161,4 +175,34 @@ function formatTime(seconds) {
 
 function padZero(num) {
     return num.toString().padStart(2, '0');
+}
+
+function startCountdown() {
+    if (window.countdownInterval) {
+        clearInterval(window.countdownInterval);
+    }
+    
+    window.countdownInterval = setInterval(updateCountdowns, 1000);
+}
+
+function updateCountdowns() {
+    tasks.forEach((task, index) => {
+        const now = new Date();
+        const timeLeft = task.deadline - now;
+        
+        if (timeLeft <= 0) {
+            // Time's up! Handle this case (e.g., apply the pledge)
+            console.log(`Time's up for task: ${task.text}`);
+            // You might want to remove the task or mark it as overdue here
+        } else {
+            const hours = Math.floor(timeLeft / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+            
+            const countdownElement = document.getElementById(`countdown-${index}`);
+            if (countdownElement) {
+                countdownElement.textContent = `${padZero(hours)}:${padZero(minutes)}:${padZero(seconds)}`;
+            }
+        }
+    });
 }

@@ -118,3 +118,12 @@ input[type="text"], input[type="number"], input[type="email"] {
     font-size: 0.8em;
     margin-top: 5px;
 }
+.tooltip {
+    cursor: help;
+    color: #007bff;
+    font-weight: bold;
+}
+
+.tooltip:hover {
+    text-decoration: underline;
+}

@@ -7,18 +7,15 @@ document.getElementById('taskForm').addEventListener('submit', function(e) {
     
     const taskInput = document.getElementById('taskInput');
     const pledgeValue = document.getElementById('dollarValue');
-    const emailInput = document.getElementById('email');
     const pledgeError = document.getElementById('pledgeError');
     const taskText = taskInput.value.trim();
     const pledge = parseFloat(pledgeValue.value);
-    const email = emailInput.value.trim();
     
-    if (taskText && !isNaN(pledge) && pledge >= 1 && email) {
+    if (taskText && !isNaN(pledge) && pledge >= 1) {
         pledgeError.textContent = '';
         const task = {
             text: taskText,
             pledge: pledge,
-            email: email,
             createdAt: new Date(),
             isWorking: false,
             elapsedTime: 0
@@ -28,7 +25,6 @@ document.getElementById('taskForm').addEventListener('submit', function(e) {
         
         taskInput.value = '';
         pledgeValue.value = '';
-        emailInput.value = '';
     } else if (pledge < 1) {
         pledgeError.textContent = 'Daily pledge must be at least $1.';
     }
@@ -56,7 +52,7 @@ function updateTaskList() {
             <div class="task-container">
                 <div class="task-info">
                     <strong>${task.text}</strong><br>
-                    Daily Pledge: $${task.pledge.toFixed(2)}<br>
+                    Daily Pledge: $${task.pledge.toFixed(2)} <span class="tooltip" title="The amount you pledge to pay daily if the task is not completed">?</span><br>
                     Time Active: ${formatTime(task.elapsedTime)}<br>
                     <div class="task-buttons">
                         <button onclick="workOnTask(${index})">${task.isWorking ? 'Pause Work' : 'Initiate Work'}</button>

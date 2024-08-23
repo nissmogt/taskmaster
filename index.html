@@ -30,7 +30,38 @@
             <button type="submit">Add Task</button>
         </form>
     </div>
-
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <h2>Welcome to Task Master!</h2>
+            <p>Task Master is a productivity tool designed to help you complete your tasks efficiently. Here's how it works:</p>
+            <ul>
+                <li>Add tasks you want to complete</li>
+                <li>Set a daily pledge amount for each task</li>
+                <li>Work on your tasks and track your progress</li>
+                <li>Complete tasks to avoid daily pledges</li>
+            </ul>
+            <p>Stay motivated and get things done!</p>
+            <div class="dont-show-again">
+                <input type="checkbox" id="dontShowAgain">
+                <label for="dontShowAgain">Don't show this message again</label>
+            </div>
+            <button id="closePopup">Got it!</button>
+        </div>
+    </div>
     <script src="script.js"></script>
+    <div id="confirmationPopup" class="popup">
+    <div class="popup-content">
+        <h2>Confirm Task Details</h2>
+        <p>Are you sure you want to add this task?</p>
+        <div id="taskDetails"></div>
+        <div class="popup-buttons">
+            <button id="confirmTask">Confirm</button>
+            <button id="cancelTask">Cancel</button>
+        </div>
+    </div>
+</div>
+
+</div>
+
 </body>
 </html>

@@ -44,7 +44,7 @@ body {
 }
 
 h1, h2 {
-    font-family: 'Furgatorio Tiling', 'Arial', sans-serif;
+    font-family: 'ibm-nerd', 'Furgatorio Tiling', 'Arial', sans-serif;
     font-size: 40px;
     margin-bottom: 20px;
     text-transform: uppercase;
@@ -60,7 +60,7 @@ h2 {
 }
 
 h1 {
-    color: #ffffff; /* Adjust this to your preferred text color */
+    color: #d3d1d1; /* Adjust this to your preferred text color */
     text-shadow: 0 0 5px #ff914d, /* Orange glow */
                  0 0 10px #ff914d,
                  0 0 20px #ff914d,
@@ -209,4 +209,71 @@ input[type="text"], input[type="number"] {
 .tooltip:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.popup-content {
+    background-color: #050a30;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #ff914d;
+    width: 70%;
+    max-width: 600px;
+    color: #ff914d;
+    font-family: 'ibm-nerd', 'VT323', 'Courier New', monospace;
+}
+
+.popup-content h2 {
+    text-align: center;
+    font-family: 'ibm-nerd', 'Furgatorio Tiling', 'Arial', sans-serif;
+}
+
+.popup-content ul {
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+.popup-content ul li:before {
+    content: "> ";
+    color: #ff914d;
+}
+
+#closePopup {
+    display: block;
+    margin: 20px auto 0;
+}
+
+.dont-show-again {
+    margin-top: 20px;
+    font-size: 0.9em;
+}
+
+.popup-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+#confirmationPopup .popup-content {
+    text-align: center;
+}
+
+#taskDetails {
+    margin: 20px 0;
+    text-align: left;
+    padding: 10px;
+    border: 1px solid #ff914d;
+    background-color: rgba(255, 145, 77, 0.1);
 }

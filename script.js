@@ -2,44 +2,89 @@ let tasks = [];
 let activeTimer = null;
 let startTime = null;
 
-document.getElementById('taskForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const taskInput = document.getElementById('taskInput');
-    const pledgeValue = document.getElementById('dollarValue');
-    const pledgeError = document.getElementById('pledgeError');
-    const taskText = taskInput.value.trim();
-    const pledge = parseFloat(pledgeValue.value);
-    
-    if (taskText && !isNaN(pledge) && pledge >= 1) {
-        pledgeError.textContent = '';
+document.addEventListener('DOMContentLoaded', function() {
+    const taskForm = document.getElementById('taskForm');
+    const confirmationPopup = document.getElementById('confirmationPopup');
+    const taskDetails = document.getElementById('taskDetails');
+    const confirmTask = document.getElementById('confirmTask');
+    const cancelTask = document.getElementById('cancelTask');
+
+    taskForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const taskInput = document.getElementById('taskInput');
+        const pledgeValue = document.getElementById('dollarValue');
+        const pledgeError = document.getElementById('pledgeError');
+        const taskText = taskInput.value.trim();
+        const pledge = parseFloat(pledgeValue.value);
+        
+        if (taskText && !isNaN(pledge) && pledge >= 1) {
+            pledgeError.textContent = '';
+            
+            // Show task details in the confirmation popup
+            taskDetails.innerHTML = `
+                <p><strong>Task:</strong> ${taskText}</p>
+                <p><strong>Daily Pledge:</strong> $${pledge.toFixed(2)}</p>
+            `;
+
+            // Show the confirmation popup
+            confirmationPopup.style.display = 'block';
+        } else if (pledge < 1) {
+            pledgeError.textContent = 'Daily pledge must be at least $1.';
+        }
+    });
+
+    confirmTask.addEventListener('click', function() {
+        const taskInput = document.getElementById('taskInput');
+        const pledgeValue = document.getElementById('dollarValue');
+        
         const task = {
-            text: taskText,
-            pledge: pledge,
+            text: taskInput.value.trim(),
+            pledge: parseFloat(pledgeValue.value),
             createdAt: new Date(),
             isWorking: false,
             elapsedTime: 0
         };
+        
         tasks.push(task);
         updateTaskList();
         
-        taskInput.value = '';
-        pledgeValue.value = '';
-    } else if (pledge < 1) {
-        pledgeError.textContent = 'Daily pledge must be at least $1.';
-    }
-});
+        // Hide the confirmation popup
+        confirmationPopup.style.display = 'none';
+        
+        // Reset the form
+        taskForm.reset();
+    });
 
-document.getElementById('dollarValue').addEventListener('input', function(e) {
-    const pledgeError = document.getElementById('pledgeError');
-    if (this.value < 1) {
-        pledgeError.textContent = 'Daily pledge must be at least $1.';
-    } else {
-        pledgeError.textContent = '';
+    cancelTask.addEventListener('click', function() {
+        // Hide the confirmation popup without adding the task
+        confirmationPopup.style.display = 'none';
+    });
+
+    document.getElementById('dollarValue').addEventListener('input', function(e) {
+        const pledgeError = document.getElementById('pledgeError');
+        if (this.value < 1) {
+            pledgeError.textContent = 'Daily pledge must be at least $1.';
+        } else {
+            pledgeError.textContent = '';
+        }
+    });
+
+    if (localStorage.getItem('dontShowPopup') !== 'true') {
+        document.getElementById('popup').style.display = 'block';
     }
+
+    document.getElementById('closePopup').addEventListener('click', function() {
+        document.getElementById('popup').style.display = 'none';
+        
+        if (document.getElementById('dontShowAgain').checked) {
+            localStorage.setItem('dontShowPopup', 'true');
+        }
+    });
 });
 
 function updateTaskList() {
+    const taskList = document.getElementById('taskList');
     taskList.innerHTML = tasks.map((task, index) => `
         <li class="${task.isWorking ? 'working' : ''}">
             <div class="task-container">
@@ -51,7 +96,7 @@ function updateTaskList() {
                         <div class="timer" id="timer-${index}">${formatTime(task.elapsedTime)}</div>
                     </div>
                     <div class="task-buttons">
-                        <button onclick="workOnTask(${index})">${task.isWorking ? 'Pause Work' : 'Initiate Work'}</button>
+                        <button onclick="workOnTask(${index})">${task.isWorking ? 'Pause Task' : 'Initiate Task'}</button>
                         <button onclick="removeTask(${index})">Complete Work</button>
                     </div>
                 </div>

@@ -301,3 +301,38 @@ input[type="text"], input[type="number"] {
     color: #ff914d;
     font-size: 30px;
 }
+
+/* footer styles */
+footer {
+    padding: 10px;
+    text-align: center;
+  }
+  
+  footer a {
+    font-size: 10px;
+    font-weight: 300;
+    border-radius: 1.61803398875; /* Silver ratio */
+    padding: 7px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: #ff914d;
+  }
+  
+  /* Add hover to anchor tags */
+  footer a:hover {
+    box-shadow: 7px 7px 7px #050a30 inset,
+    -10px -10px 10px white inset;
+  }
+  .footer-link {
+      font-family: 'ibm-nerd', sans-serif;
+      font-weight: 300;
+      font-size: 15px;    
+      padding: 5px;
+      justify-content: right;
+  }
+  .copyright {
+    padding: 5px;
+    font-family: 'ibm-nerd', sans-serif;
+    font-weight: normal;
+    font-size:15px
+  }

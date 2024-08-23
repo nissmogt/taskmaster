@@ -4,123 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Master</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            display: flex;
-            height: 100vh;
-        }
-        .left-side, .right-side {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-        }
-        .vertical-line {
-            width: 2px;
-            background-color: #000;
-            height: 100%;
-        }
-        h1, h2 {
-            margin-bottom: 20px;
-        }
-        form {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-        label {
-            margin-bottom: 10px;
-        }
-        input[type="text"], input[type="number"] {
-            padding: 5px;
-            width: 200px;
-            margin-bottom: 10px;
-        }
-        button {
-            padding: 5px 10px;
-            margin-bottom: 10px;
-        }
-        #taskList {
-            list-style-type: none;
-            padding: 0;
-        }
-        #taskList li {
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            padding: 10px;
-        }
-        .error {
-            color: red;
-            font-size: 0.8em;
-            margin-top: -5px;
-            margin-bottom: 10px;
-        }
-        .task-buttons {
-            margin-top: 10px;
-        }
-        .task-buttons button {
-            margin-right: 10px;
-        }
-        .working {
-            background-color: #ffffcc;
-        }
-        .task-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .task-info {
-            flex: 1;
-        }
-        .timer {
-            font-size: 1.2em;
-            font-weight: bold;
-            margin-left: 20px;
-        }
-        .tooltip {
-            position: relative;
-            display: inline-block;
-            cursor: help;
-        }
-
-        .tooltip .tooltiptext {
-            visibility: hidden;
-            width: 200px;
-            background-color: #555;
-            color: #fff;
-            text-align: center;
-            border-radius: 6px;
-            padding: 5px;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%;
-            left: 50%;
-            margin-left: -100px;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .tooltip:hover .tooltiptext {
-            visibility: visible;
-            opacity: 1;
-        }
-
-        .question-mark {
-            display: inline-block;
-            width: 16px;
-            height: 16px;
-            background-color: #ccc;
-            color: #fff;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 16px;
-            font-size: 12px;
-            margin-left: 5px;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="left-side">
@@ -134,19 +18,20 @@
             <label for="taskInput">Enter task:</label>
             <input type="text" id="taskInput" name="taskInput" required>
             <label for="dollarValue">
-                Daily penalty ($):
+                Daily pledge ($):
                 <span class="tooltip">
                     <span class="question-mark">?</span>
                     <span class="tooltiptext">This is the amount that will be deducted from your account each day the task remains incomplete. It serves as a motivation to complete tasks quickly.</span>
                 </span>
             </label>
             <input type="number" id="dollarValue" name="dollarValue" min="1" step="0.01" required>
-            <div id="penaltyError" class="error"></div>
+            <div id="pledgeError" class="error"></div>
             <button type="submit">Add Task</button>
         </form>
     </div>
 
     <script>
+        // JavaScript code remains unchanged
         let tasks = [];
         let activeTimer = null;
         let startTime = null;
@@ -156,15 +41,15 @@
             
             const taskInput = document.getElementById('taskInput');
             const dollarValue = document.getElementById('dollarValue');
-            const penaltyError = document.getElementById('penaltyError');
+            const pledgeError = document.getElementById('pledgeError');
             const taskText = taskInput.value.trim();
-            const penalty = parseFloat(dollarValue.value);
+            const pledge = parseFloat(dollarValue.value);
             
-            if (taskText && !isNaN(penalty) && penalty >= 1) {
-                penaltyError.textContent = '';
+            if (taskText && !isNaN(pledge) && pledge >= 1) {
+                pledgeError.textContent = '';
                 const task = {
                     text: taskText,
-                    penalty: penalty,
+                    pledge: pledge,
                     createdAt: new Date(),
                     isWorking: false,
                     elapsedTime: 0
@@ -174,17 +59,17 @@
                 
                 taskInput.value = '';
                 dollarValue.value = '';
-            } else if (penalty < 1) {
-                penaltyError.textContent = 'Daily penalty must be at least $1.';
+            } else if (pledge < 1) {
+                pledgeError.textContent = 'Daily pledge must be at least $1.';
             }
         });
 
         document.getElementById('dollarValue').addEventListener('input', function(e) {
-            const penaltyError = document.getElementById('penaltyError');
+            const pledgeError = document.getElementById('pledgeError');
             if (this.value < 1) {
-                penaltyError.textContent = 'Daily penalty must be at least $1.';
+                pledgeError.textContent = 'Daily pledge must be at least $1.';
             } else {
-                penaltyError.textContent = '';
+                pledgeError.textContent = '';
             }
         });
 
@@ -195,22 +80,22 @@
             tasks.forEach((task, index) => {
                 const li = document.createElement('li');
                 const daysSinceCreation = Math.floor((new Date() - task.createdAt) / (1000 * 60 * 60 * 24));
-                const totalPenalty = (daysSinceCreation * task.penalty).toFixed(2);
+                const totalpledge = (daysSinceCreation * task.pledge).toFixed(2);
                 li.className = task.isWorking ? 'working' : '';
                 li.innerHTML = `
                     <div class="task-container">
                         <div class="task-info">
                             <strong>${task.text}</strong><br>
-                            Daily Penalty: $${task.penalty.toFixed(2)}
+                            Daily pledge: $${task.pledge.toFixed(2)}
                             <span class="tooltip">
                                 <span class="question-mark">?</span>
-                                <span class="tooltiptext">This is the daily penalty for this task. Total penalty so far: $${totalPenalty}</span>
+                                <span class="tooltiptext">This is the daily pledge for this task. Total pledge so far: $${totalpledge}</span>
                             </span><br>
                             Days Active: ${daysSinceCreation}<br>
                             <div class="task-buttons">
                                 <button onclick="workOnTask(${index})">${task.isWorking ? 'Stop Working' : 'Work on Task'}</button>
                                 <button onclick="removeTask(${index})">Complete Task</button>
-                    </div>
+                            </div>
                         </div>
                         <div class="timer" id="timer-${index}">${formatTime(task.elapsedTime)}</div>
                     </div>
@@ -222,7 +107,7 @@
         function removeTask(index) {
             if (tasks[index].isWorking) {
                 stopTimer();
-        }
+            }
             tasks.splice(index, 1);
             updateTaskList();
         }
@@ -238,7 +123,7 @@
                     if (task.isWorking) {
                         stopTimer();
                         task.isWorking = false;
-        }
+                    }
                 });
                 tasks[index].isWorking = true;
                 startTimer(index);
@@ -264,8 +149,8 @@
                 const activeTaskIndex = tasks.findIndex(task => task.isWorking);
                 if (activeTaskIndex !== -1) {
                     tasks[activeTaskIndex].elapsedTime += Math.floor((Date.now() - startTime) / 1000);
-        }
-        }
+                }
+            }
         }
 
         function formatTime(seconds) {

@@ -8,161 +8,23 @@
 </head>
 <body>
     <div class="left-side">
-        <h2>Active Tasks</h2>
+        <h1>ACTIVE TASKS</h1>
         <ul id="taskList"></ul>
     </div>
-    <div class="vertical-line"></div>
     <div class="right-side">
-        <h1>Task Master</h1>
+        <h1>TASK MASTER</h1>
         <form id="taskForm">
-            <label for="taskInput">Enter task:</label>
+            <label for="taskInput">task you wish to complete:</label>
             <input type="text" id="taskInput" name="taskInput" required>
-            <label for="dollarValue">
-                Daily pledge ($):
-                <span class="tooltip">
-                    <span class="question-mark">?</span>
-                    <span class="tooltiptext">This is the amount that will be deducted from your account each day the task remains incomplete. It serves as a motivation to complete tasks quickly.</span>
-                </span>
-            </label>
+            <label for="dollarValue">pledge amount($):</label>
             <input type="number" id="dollarValue" name="dollarValue" min="1" step="0.01" required>
+            <label for="email">email:</label>
+            <input type="email" id="email" name="email" required>
             <div id="pledgeError" class="error"></div>
             <button type="submit">Add Task</button>
         </form>
     </div>
 
-    <script>
-        // JavaScript code remains unchanged
-        let tasks = [];
-        let activeTimer = null;
-        let startTime = null;
-
-        document.getElementById('taskForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const taskInput = document.getElementById('taskInput');
-            const dollarValue = document.getElementById('dollarValue');
-            const pledgeError = document.getElementById('pledgeError');
-            const taskText = taskInput.value.trim();
-            const pledge = parseFloat(dollarValue.value);
-            
-            if (taskText && !isNaN(pledge) && pledge >= 1) {
-                pledgeError.textContent = '';
-                const task = {
-                    text: taskText,
-                    pledge: pledge,
-                    createdAt: new Date(),
-                    isWorking: false,
-                    elapsedTime: 0
-                };
-                tasks.push(task);
-                updateTaskList();
-                
-                taskInput.value = '';
-                dollarValue.value = '';
-            } else if (pledge < 1) {
-                pledgeError.textContent = 'Daily pledge must be at least $1.';
-            }
-        });
-
-        document.getElementById('dollarValue').addEventListener('input', function(e) {
-            const pledgeError = document.getElementById('pledgeError');
-            if (this.value < 1) {
-                pledgeError.textContent = 'Daily pledge must be at least $1.';
-            } else {
-                pledgeError.textContent = '';
-            }
-        });
-
-        function updateTaskList() {
-            const taskList = document.getElementById('taskList');
-            taskList.innerHTML = '';
-            
-            tasks.forEach((task, index) => {
-                const li = document.createElement('li');
-                const daysSinceCreation = Math.floor((new Date() - task.createdAt) / (1000 * 60 * 60 * 24));
-                const totalpledge = (daysSinceCreation * task.pledge).toFixed(2);
-                li.className = task.isWorking ? 'working' : '';
-                li.innerHTML = `
-                    <div class="task-container">
-                        <div class="task-info">
-                            <strong>${task.text}</strong><br>
-                            Daily pledge: $${task.pledge.toFixed(2)}
-                            <span class="tooltip">
-                                <span class="question-mark">?</span>
-                                <span class="tooltiptext">This is the daily pledge for this task. Total pledge so far: $${totalpledge}</span>
-                            </span><br>
-                            Days Active: ${daysSinceCreation}<br>
-                            <div class="task-buttons">
-                                <button onclick="workOnTask(${index})">${task.isWorking ? 'Stop Working' : 'Work on Task'}</button>
-                                <button onclick="removeTask(${index})">Complete Task</button>
-                            </div>
-                        </div>
-                        <div class="timer" id="timer-${index}">${formatTime(task.elapsedTime)}</div>
-                    </div>
-                `;
-                taskList.appendChild(li);
-            });
-        }
-
-        function removeTask(index) {
-            if (tasks[index].isWorking) {
-                stopTimer();
-            }
-            tasks.splice(index, 1);
-            updateTaskList();
-        }
-
-        function workOnTask(index) {
-            if (tasks[index].isWorking) {
-                // Stopping work on the current task
-                stopTimer();
-                tasks[index].isWorking = false;
-            } else {
-                // Starting work on a new task
-                tasks.forEach((task, i) => {
-                    if (task.isWorking) {
-                        stopTimer();
-                        task.isWorking = false;
-                    }
-                });
-                tasks[index].isWorking = true;
-                startTimer(index);
-            }
-            updateTaskList();
-        }
-
-        function startTimer(index) {
-            if (activeTimer) {
-                clearInterval(activeTimer);
-            }
-            startTime = Date.now();
-            activeTimer = setInterval(() => {
-                const elapsedSeconds = Math.floor((Date.now() - startTime) / 1000) + tasks[index].elapsedTime;
-                document.getElementById(`timer-${index}`).textContent = formatTime(elapsedSeconds);
-            }, 1000);
-        }
-
-        function stopTimer() {
-            if (activeTimer) {
-                clearInterval(activeTimer);
-                activeTimer = null;
-                const activeTaskIndex = tasks.findIndex(task => task.isWorking);
-                if (activeTaskIndex !== -1) {
-                    tasks[activeTaskIndex].elapsedTime += Math.floor((Date.now() - startTime) / 1000);
-                }
-            }
-        }
-
-        function formatTime(seconds) {
-            const hours = Math.floor(seconds / 3600);
-            const minutes = Math.floor((seconds % 3600) / 60);
-            const remainingSeconds = Math.floor(seconds % 60);
-            return `${padZero(hours)}:${padZero(minutes)}:${padZero(remainingSeconds)}`;
-        }
-
-        function padZero(num) {
-            return num.toString().padStart(2, '0');
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>

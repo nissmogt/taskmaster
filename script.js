@@ -40,30 +40,24 @@ document.getElementById('dollarValue').addEventListener('input', function(e) {
 });
 
 function updateTaskList() {
-    const taskList = document.getElementById('taskList');
-    taskList.innerHTML = '';
-    
-    tasks.forEach((task, index) => {
-        const li = document.createElement('li');
-        const daysSinceCreation = Math.floor((new Date() - task.createdAt) / (1000 * 60 * 60 * 24));
-        const totalPledge = (daysSinceCreation * task.pledge).toFixed(2);
-        li.className = task.isWorking ? 'working' : '';
-        li.innerHTML = `
+    taskList.innerHTML = tasks.map((task, index) => `
+        <li class="${task.isWorking ? 'working' : ''}">
             <div class="task-container">
                 <div class="task-info">
                     <strong>${task.text}</strong><br>
-                    Daily Pledge: $${task.pledge.toFixed(2)} <span class="tooltip" title="The amount you pledge to pay daily if the task is not completed">?</span><br>
-                    Time Active: ${formatTime(task.elapsedTime)}<br>
+                    Daily Pledge: $${task.pledge.toFixed(2)}<br>
+                    <div class="timer-container">
+                        <span>Time Active:</span>
+                        <div class="timer" id="timer-${index}">${formatTime(task.elapsedTime)}</div>
+                    </div>
                     <div class="task-buttons">
                         <button onclick="workOnTask(${index})">${task.isWorking ? 'Pause Work' : 'Initiate Work'}</button>
                         <button onclick="removeTask(${index})">Complete Work</button>
                     </div>
                 </div>
-                <div class="timer" id="timer-${index}">${formatTime(task.elapsedTime)}</div>
             </div>
-        `;
-        taskList.appendChild(li);
-    });
+        </li>
+    `).join('');
 }
 
 function removeTask(index) {

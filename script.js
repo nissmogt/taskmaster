@@ -17,11 +17,22 @@ const ui = {
     emptyState: null,
     hud: null,
     popup: null,
-    donationPopup: null
+    donationPopup: null,
+    donationTrackLabel: null
 };
+
+const FRIEND_BANDCAMP_TRACKS = [
+    { title: 'Luigi', url: 'https://rtyler.bandcamp.com/track/luigi' },
+    { title: 'Negative Vibes Only 2', url: 'https://rtyler.bandcamp.com/track/negative-vibes-only-2' },
+];
 
 function uid() {
     return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+}
+
+function pickRandomFriendTrack() {
+    const i = Math.floor(Math.random() * FRIEND_BANDCAMP_TRACKS.length);
+    return FRIEND_BANDCAMP_TRACKS[i];
 }
 
 function saveState() {
@@ -298,6 +309,13 @@ function bindEvents() {
 
     document.getElementById('openDonation').addEventListener('click', () => {
         ui.donationPopup.style.display = 'block';
+        ui.donationTrackLabel.textContent = '';
+    });
+
+    document.getElementById('donateFriendProject').addEventListener('click', () => {
+        const track = pickRandomFriendTrack();
+        ui.donationTrackLabel.textContent = `Opening random track: ${track.title} — rtyler.bandcamp.com`;
+        window.open(track.url, '_blank', 'noopener,noreferrer');
     });
 
     document.getElementById('closeDonation').addEventListener('click', () => {
@@ -330,6 +348,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ui.hud = document.getElementById('hud');
     ui.popup = document.getElementById('popup');
     ui.donationPopup = document.getElementById('donationPopup');
+    ui.donationTrackLabel = document.getElementById('donationTrackLabel');
 
     loadState();
     bindEvents();

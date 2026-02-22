@@ -21,18 +21,91 @@ const ui = {
     donationTrackLabel: null
 };
 
-const FRIEND_BANDCAMP_TRACKS = [
-    { title: 'Luigi', url: 'https://rtyler.bandcamp.com/track/luigi' },
-    { title: 'Negative Vibes Only 2', url: 'https://rtyler.bandcamp.com/track/negative-vibes-only-2' },
+const FRIEND_BANDCAMP_PICKS = [
+    { artist: 'R Tyler', type: 'track', url: 'https://rtyler.bandcamp.com/track/bits' },
+    { artist: 'R Tyler', type: 'track', url: 'https://rtyler.bandcamp.com/track/bottom-quark-53-edo' },
+    { artist: 'R Tyler', type: 'track', url: 'https://rtyler.bandcamp.com/track/branch-plants-of-me-2' },
+    { artist: 'R Tyler', type: 'track', url: 'https://rtyler.bandcamp.com/track/chaotic-eval-2' },
+    { artist: 'R Tyler', type: 'track', url: 'https://rtyler.bandcamp.com/track/chowning' },
+    { artist: 'R Tyler', type: 'track', url: 'https://rtyler.bandcamp.com/track/dang-birbs-2' },
+    { artist: 'R Tyler', type: 'track', url: 'https://rtyler.bandcamp.com/track/denisovan-embassy' },
+    { artist: 'R Tyler', type: 'track', url: 'https://rtyler.bandcamp.com/track/discrete-music-2' },
+    { artist: 'R Tyler', type: 'track', url: 'https://rtyler.bandcamp.com/track/donkology' },
+    { artist: 'R Tyler', type: 'track', url: 'https://rtyler.bandcamp.com/track/egg-rolling-2' },
+    { artist: 'R Tyler', type: 'track', url: 'https://rtyler.bandcamp.com/track/egg-rolling-3' },
+    { artist: 'R Tyler', type: 'track', url: 'https://rtyler.bandcamp.com/track/enceladus' },
+    { artist: 'R Tyler', type: 'track', url: 'https://rtyler.bandcamp.com/track/enumerate' },
+    { artist: 'R Tyler', type: 'track', url: 'https://rtyler.bandcamp.com/track/epsilon-2' },
+    { artist: 'R Tyler', type: 'track', url: 'https://rtyler.bandcamp.com/track/floordiv' },
+    { artist: 'R Tyler', type: 'track', url: 'https://rtyler.bandcamp.com/track/have-you-heard-2' },
+    { artist: 'R Tyler', type: 'track', url: 'https://rtyler.bandcamp.com/track/import-os' },
+    { artist: 'R Tyler', type: 'track', url: 'https://rtyler.bandcamp.com/track/import-subprocess' },
+    { artist: 'R Tyler', type: 'track', url: 'https://rtyler.bandcamp.com/track/inoremap-jk-esc' },
+    { artist: 'R Tyler', type: 'track', url: 'https://rtyler.bandcamp.com/track/jiang-2' },
+    { artist: 'R Tyler', type: 'track', url: 'https://rtyler.bandcamp.com/track/kylie-minilogue-34-edo' },
+    { artist: 'R Tyler', type: 'track', url: 'https://rtyler.bandcamp.com/track/luigi' },
+    { artist: 'R Tyler', type: 'track', url: 'https://rtyler.bandcamp.com/track/midi-solutions' },
+    { artist: 'R Tyler', type: 'track', url: 'https://rtyler.bandcamp.com/track/negative-vibes-only-2' },
+    { artist: 'R Tyler', type: 'track', url: 'https://rtyler.bandcamp.com/track/negative-vibes-only-3' },
+    { artist: 'R Tyler', type: 'track', url: 'https://rtyler.bandcamp.com/track/oneshotted' },
+    { artist: 'R Tyler', type: 'track', url: 'https://rtyler.bandcamp.com/track/public-void' },
+    { artist: 'R Tyler', type: 'track', url: 'https://rtyler.bandcamp.com/track/qeqqata-2' },
+    { artist: 'R Tyler', type: 'track', url: 'https://rtyler.bandcamp.com/track/raise-valueerror' },
+    { artist: 'R Tyler', type: 'track', url: 'https://rtyler.bandcamp.com/track/relationship-tree-2' },
+    { artist: 'R Tyler', type: 'track', url: 'https://rtyler.bandcamp.com/track/return' },
+    { artist: 'R Tyler', type: 'track', url: 'https://rtyler.bandcamp.com/track/sf-fitness-53-edo' },
+    { artist: 'R Tyler', type: 'track', url: 'https://rtyler.bandcamp.com/track/sorted' },
+    { artist: 'R Tyler', type: 'track', url: 'https://rtyler.bandcamp.com/track/str-replace' },
+    { artist: 'R Tyler', type: 'track', url: 'https://rtyler.bandcamp.com/track/strange-stars' },
+    { artist: 'R Tyler', type: 'track', url: 'https://rtyler.bandcamp.com/track/suibian-2' },
+    { artist: 'R Tyler', type: 'track', url: 'https://rtyler.bandcamp.com/track/supersonic' },
+    { artist: 'R Tyler', type: 'track', url: 'https://rtyler.bandcamp.com/track/telling-my-kids-this-was-vibe-coding' },
+    { artist: 'R Tyler', type: 'track', url: 'https://rtyler.bandcamp.com/track/unfalse' },
+    { artist: 'R Tyler', type: 'track', url: 'https://rtyler.bandcamp.com/track/veridical' },
+    { artist: 'R Tyler', type: 'track', url: 'https://rtyler.bandcamp.com/track/vibe-coding' },
+    { artist: 'R Tyler', type: 'track', url: 'https://rtyler.bandcamp.com/track/when-you-dream-do-you-dream-the-sound' },
+    { artist: 'R Tyler', type: 'track', url: 'https://rtyler.bandcamp.com/track/white-sands-31-edo' },
+    { artist: 'R Tyler', type: 'track', url: 'https://rtyler.bandcamp.com/track/xenocryst' },
+    { artist: 'R Tyler', type: 'track', url: 'https://rtyler.bandcamp.com/track/yield' },
+    { artist: 'R Tyler', type: 'album', url: 'https://rtyler.bandcamp.com/album/arctangent-hoots-by-the-nudibranch' },
+    { artist: 'R Tyler', type: 'album', url: 'https://rtyler.bandcamp.com/album/egg-rolling' },
+    { artist: 'R Tyler', type: 'album', url: 'https://rtyler.bandcamp.com/album/live-code-volume-1' },
+    { artist: 'R Tyler', type: 'album', url: 'https://rtyler.bandcamp.com/album/live-code-volume-2' },
+    { artist: 'R Tyler', type: 'album', url: 'https://rtyler.bandcamp.com/album/live-code-volume-3' },
+    { artist: 'R Tyler', type: 'album', url: 'https://rtyler.bandcamp.com/album/pandaform-tripartite' },
+    { artist: 'R Tyler', type: 'album', url: 'https://rtyler.bandcamp.com/album/rsync' },
+    { artist: 'R Tyler', type: 'album', url: 'https://rtyler.bandcamp.com/album/when-you-dream-do-you-dream-the-sound' },
+    { artist: 'XMachina', type: 'track', url: 'https://xmachina.bandcamp.com/track/cheap-words' },
+    { artist: 'XMachina', type: 'album', url: 'https://xmachina.bandcamp.com/album/a-million-knives' },
+    { artist: 'XMachina', type: 'album', url: 'https://xmachina.bandcamp.com/album/a-senile-animal' },
+    { artist: 'XMachina', type: 'album', url: 'https://xmachina.bandcamp.com/album/a-walk-with-love-death' },
+    { artist: 'XMachina', type: 'album', url: 'https://xmachina.bandcamp.com/album/descalator' },
+    { artist: 'XMachina', type: 'album', url: 'https://xmachina.bandcamp.com/album/pinkus-abortion-technician' },
+    { artist: 'XMachina', type: 'album', url: 'https://xmachina.bandcamp.com/album/soft-spoken-secrets' },
+    { artist: 'XMachina', type: 'album', url: 'https://xmachina.bandcamp.com/album/youre-living-all-over-me' },
 ];
+
+let lastDonationPickIndex = -1;
 
 function uid() {
     return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 }
 
-function pickRandomFriendTrack() {
-    const i = Math.floor(Math.random() * FRIEND_BANDCAMP_TRACKS.length);
-    return FRIEND_BANDCAMP_TRACKS[i];
+function prettifySlug(url) {
+    const slug = url.split('/').filter(Boolean).pop() || 'random-pick';
+    return slug
+        .split('-')
+        .map((part) => (part.length ? part[0].toUpperCase() + part.slice(1) : part))
+        .join(' ');
+}
+
+function pickRandomFriendPick() {
+    let i = Math.floor(Math.random() * FRIEND_BANDCAMP_PICKS.length);
+    if (FRIEND_BANDCAMP_PICKS.length > 1 && i === lastDonationPickIndex) {
+        i = (i + 1 + Math.floor(Math.random() * (FRIEND_BANDCAMP_PICKS.length - 1))) % FRIEND_BANDCAMP_PICKS.length;
+    }
+    lastDonationPickIndex = i;
+    return FRIEND_BANDCAMP_PICKS[i];
 }
 
 function saveState() {
@@ -313,9 +386,10 @@ function bindEvents() {
     });
 
     document.getElementById('donateFriendProject').addEventListener('click', () => {
-        const track = pickRandomFriendTrack();
-        ui.donationTrackLabel.textContent = `Opening random track: ${track.title} — rtyler.bandcamp.com`;
-        window.open(track.url, '_blank', 'noopener,noreferrer');
+        const pick = pickRandomFriendPick();
+        const displayTitle = prettifySlug(pick.url);
+        ui.donationTrackLabel.textContent = `Opening random ${pick.type}: ${displayTitle} — ${pick.artist}`;
+        window.open(pick.url, '_blank', 'noopener,noreferrer');
     });
 
     document.getElementById('closeDonation').addEventListener('click', () => {

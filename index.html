@@ -12,27 +12,27 @@
 <body>
     <header class="top-bar">
         <h1 class="glow">TASK MASTER</h1>
-        <div id="hud" class="hud"></div>
+        <div id="hud" class="hud" aria-live="polite"></div>
     </header>
 
     <main class="layout">
-        <section class="left-side panel">
+        <section class="left-side panel" aria-label="Mission board">
             <h2>MISSION BOARD</h2>
             <ul id="goalList"></ul>
             <p id="emptyState" class="empty">No active goals. Add one to begin your run.</p>
         </section>
 
-        <section class="right-side panel">
+        <section class="right-side panel" aria-label="Create new goal">
             <h2>NEW GOAL</h2>
             <form id="goalForm">
-                <label for="goalInput">> Goal:</label>
+                <label for="goalInput">&gt; Goal:</label>
                 <input type="text" id="goalInput" name="goalInput" required maxlength="120" placeholder="Ship portfolio site">
 
-                <label for="taskInput">> First task:</label>
+                <label for="taskInput">&gt; First task:</label>
                 <input type="text" id="taskInput" name="taskInput" required maxlength="120" placeholder="Draft homepage layout">
 
                 <label for="dollarValue">
-                    > Daily pledge amount ($)
+                    &gt; Daily pledge amount ($)
                     <span class="tooltip">?
                         <span class="tooltiptext">Optional accountability amount. If goal is overdue, this amount is suggested for donation each day. This is motivational, never required.</span>
                     </span>
@@ -46,7 +46,7 @@
             <div class="donation-box">
                 <h3>OPTIONAL DONATION TERMINAL</h3>
                 <p>Donations are always optional. No features are locked.</p>
-                <button id="openDonation">Donate if this helped</button>
+                <button id="openDonation" type="button">Donate if this helped</button>
             </div>
         </section>
     </main>
@@ -64,7 +64,7 @@
                 <input type="checkbox" id="dontShowAgain">
                 <label for="dontShowAgain">Don't show this message again</label>
             </div>
-            <button id="closePopup">Let’s play</button>
+            <button id="closePopup" type="button">Let’s play</button>
         </div>
     </div>
 
@@ -76,18 +76,19 @@
                 <a class="link-btn" href="https://ko-fi.com" target="_blank" rel="noopener noreferrer">Open Ko-fi</a>
                 <a class="link-btn" href="https://buymeacoffee.com" target="_blank" rel="noopener noreferrer">Open Buy Me a Coffee</a>
             </div>
-            <button id="closeDonation">Back</button>
+            <button id="closeDonation" type="button">Back</button>
         </div>
     </div>
 
+    <footer>
+        <p class="copyright">made by kareem to help us get things done.</p>
+        <p>
+            <a class="footer-link" href="https://github.com/nissmogt">github</a> |
+            <a class="footer-link" href="https://linkedin.com/in/kareemmehrabiani">linkedin</a> |
+            <a class="footer-link" href="mailto:kareem@mehrabiani.com">email</a>
+        </p>
+    </footer>
+
     <script src="script.js"></script>
 </body>
-<footer>
-    <p class="copyright">made by kareem to help us get things done.</p>
-    <p>
-        <a class="footer-link" href="https://github.com/nissmogt"><i class="fa"></i> github</a> |
-        <a class="footer-link" href="https://linkedin.com/in/kareemmehrabiani"><i class="fa"></i> linkedin</a> |
-        <a class="footer-link" href="mailto:kareem@mehrabiani.com"><i class="fa"></i> email</a>
-    </p>
-</footer>
 </html>

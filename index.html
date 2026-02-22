@@ -10,59 +10,77 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="left-side">
-        <h1>ACTIVE TASKS</h1>
-        <ul id="taskList"></ul>
-    </div>
-    <div class="right-side">
+    <header class="top-bar">
         <h1 class="glow">TASK MASTER</h1>
-        <form id="taskForm">
-            <label for="taskInput">> Task you wish to complete:</label>
-            <input type="text" id="taskInput" name="taskInput" required>
-            <label for="dollarValue">
-                > Daily Pledge Amount($)
-                <span class="tooltip">?
-                    <span class="tooltiptext">The daily pledge is the amount you commit to donate or forfeit each day until the task is completed. It serves as motivation to finish your task quickly.</span>
-                </span>:
-            </label>
-            <input type="number" id="dollarValue" name="dollarValue" min="1" step="0.01" required>
-            <div id="pledgeError" class="error"></div>
-            <button type="submit">Add Task</button>
-        </form>
-    </div>
+        <div id="hud" class="hud"></div>
+    </header>
+
+    <main class="layout">
+        <section class="left-side panel">
+            <h2>MISSION BOARD</h2>
+            <ul id="goalList"></ul>
+            <p id="emptyState" class="empty">No active goals. Add one to begin your run.</p>
+        </section>
+
+        <section class="right-side panel">
+            <h2>NEW GOAL</h2>
+            <form id="goalForm">
+                <label for="goalInput">> Goal:</label>
+                <input type="text" id="goalInput" name="goalInput" required maxlength="120" placeholder="Ship portfolio site">
+
+                <label for="taskInput">> First task:</label>
+                <input type="text" id="taskInput" name="taskInput" required maxlength="120" placeholder="Draft homepage layout">
+
+                <label for="dollarValue">
+                    > Daily pledge amount ($)
+                    <span class="tooltip">?
+                        <span class="tooltiptext">Optional accountability amount. If goal is overdue, this amount is suggested for donation each day. This is motivational, never required.</span>
+                    </span>
+                </label>
+                <input type="number" id="dollarValue" name="dollarValue" min="0" step="0.01" value="5">
+                <small class="muted">Set to 0 if you want no money pressure.</small>
+
+                <button type="submit">Start Goal</button>
+            </form>
+
+            <div class="donation-box">
+                <h3>OPTIONAL DONATION TERMINAL</h3>
+                <p>Donations are always optional. No features are locked.</p>
+                <button id="openDonation">Donate if this helped</button>
+            </div>
+        </section>
+    </main>
+
     <div id="popup" class="popup">
         <div class="popup-content">
-            <h2>Welcome to Task Master!</h2>
-            <p>Task Master is a productivity tool designed to help you complete your tasks efficiently. Here's how it works:</p>
+            <h2>Welcome to Task Master</h2>
+            <p>Retro productivity with real accountability:</p>
             <ul>
-                <li>Add tasks you want to complete</li>
-                <li>Set a daily pledge amount for each task</li>
-                <li>Work on your tasks and track your progress</li>
-                <li>Complete tasks to avoid daily pledges</li>
+                <li>Create a goal, then break it into tasks/subtasks</li>
+                <li>Check tasks to grow your streak and progress meter</li>
+                <li>Use optional pledge + countdown to stay motivated</li>
             </ul>
-            <p>Stay motivated and get things done!</p>
             <div class="dont-show-again">
                 <input type="checkbox" id="dontShowAgain">
                 <label for="dontShowAgain">Don't show this message again</label>
             </div>
-            <button id="closePopup">Got it!</button>
+            <button id="closePopup">Let’s play</button>
         </div>
     </div>
+
+    <div id="donationPopup" class="popup">
+        <div class="popup-content">
+            <h2>Support the mission (optional)</h2>
+            <p>If Task Master keeps you accountable, you can donate. Totally optional.</p>
+            <div class="popup-buttons">
+                <a class="link-btn" href="https://ko-fi.com" target="_blank" rel="noopener noreferrer">Open Ko-fi</a>
+                <a class="link-btn" href="https://buymeacoffee.com" target="_blank" rel="noopener noreferrer">Open Buy Me a Coffee</a>
+            </div>
+            <button id="closeDonation">Back</button>
+        </div>
+    </div>
+
     <script src="script.js"></script>
-    <div id="confirmationPopup" class="popup">
-    <div class="popup-content">
-        <h2>Confirm Task Details</h2>
-        <p>Are you sure you want to add this task?</p>
-        <div id="taskDetails"></div>
-        <div class="popup-buttons">
-            <button id="confirmTask">Confirm</button>
-            <button id="cancelTask">Cancel</button>
-        </div>
-    </div>
-</div>
-
-</div>
-
 </body>
 <footer>
     <p class="copyright">made by kareem to help us get things done.</p>
